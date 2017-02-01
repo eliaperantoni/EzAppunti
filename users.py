@@ -1,5 +1,6 @@
 from ftplib import FTP
 import hashlib
+import os
 host = "f14-preview.royalwebhosting.net"
 pasw = "tooezforrtz"
 user = "2289107"
@@ -11,7 +12,7 @@ if __name__ == "__main__":
     ftp.login(user,pasw)
     print("Successfully connected (Perhaps) to the host, downloading users.txt")#TODO Fix connection failed detection
     if "users.txt" in ftp.nlst():
-        ftp.retrbinary("RETR users.txt",open("users.txt","wb").write)
+        ftp.retrbinary("RETR users.txt",open("users.txt","wb").write)#TODO Hide file
     print("\n===LOGIN===")
     givenUsr=input("Username: ")
     givenPsw = input("Password: ")
@@ -29,3 +30,4 @@ if __name__ == "__main__":
                     loggedUser="WRONG_PASSWORD"
         if(loggedUser=="NULL"):
             print("No users found for entry "+givenUsr)
+    os.remove("users.txt")
