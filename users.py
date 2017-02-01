@@ -30,4 +30,4 @@ if __name__ == "__main__":
                     loggedUser="WRONG_PASSWORD"
         if(loggedUser=="NULL"):
             print("No users found for entry "+givenUsr)
-    os.remove("users.txt")
+    open("users.txt","a").write("\nciao")
