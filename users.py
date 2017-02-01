@@ -1,6 +1,6 @@
 from ftplib import FTP
 import hashlib
-import getpass
+import getpass #TODO Make this work
 import sys
 import os
 host = "f14-preview.royalwebhosting.net"
@@ -8,7 +8,7 @@ pasw = "tooezforrtz"
 user = "2289107"
 loggedUser="NULL"
 permissions=""
-currId=0
+currId=0 #TODO Make this work
 def exitProgram():
     input("Press enter to exit ")
     sys.exit(0)
@@ -55,7 +55,7 @@ if __name__ == "__main__":
             out+=";0"
             open("users.txt","a").write("\n"+out)
             ftp.storbinary("STOR users.txt",open("users.txt","rb"))
-        elif(i=="cup"):
+        elif(i=="cup"):#TODO Make this a little bit better and more reliable
             i=input("\tWhich user? ")
             x=-1
             with open("users.txt") as f:
