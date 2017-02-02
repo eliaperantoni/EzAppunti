@@ -1,20 +1,15 @@
-from ftplib import FTP
-from util import *
+from lib.util import *
 import hashlib
-import util
+import lib.util
 import getpass #TODO Make this work
 import sys
 import os
-host = "f14-preview.royalwebhosting.net"
-pasw = "tooezforrtz"
-user = "2289107"
 loggedUser="NULL"
 permissions=""
 currId=0 #TODO Make this work
 if __name__ == "__main__":
-    ftp = FTP(host)
+    ftp=connectToServer()
     print("Connecting to: "+host+":"+user+":"+"******")
-    ftp.login(user,pasw)
     print("Successfully connected (Perhaps) to the host, downloading users.txt")#TODO Fix connection failed detection
     print("\n===LOGIN===")
     givenUsr=input("Username: ")
@@ -33,10 +28,10 @@ if __name__ == "__main__":
                 else:
                     print("Wrong password")
                     loggedUser="WRONG_PASSWORD"
-                    util.exitProgram()
+                    exitProgram()
         if(loggedUser=="NULL"):
             print("No users found for entry "+givenUsr+" or not enough permissions")
-            util.exitProgram()
+            exitProgram()
     print("Use 'cmds' to get a list of available commands")
     while(True):
         i=input("$~ ")

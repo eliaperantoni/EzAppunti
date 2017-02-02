@@ -1,7 +1,7 @@
-import users
+from lib.master import *
 import hashlib
 from ftplib import FTP
-import util
+from lib.util import *
 #id/username/password/permessions/karma
 credentials=[]
 loggedUser="NULL"#Don't refer to this, use credentials[1]
@@ -16,8 +16,7 @@ def fn_write_file(file):
     file1.close
 if __name__ == "__main__":
     print("\nEzAppunti v1.0")
-    ftp = FTP(users.host)
-    ftp.login(users.user, users.pasw)
+    ftp=connectToServer()
     if "users.txt" in ftp.nlst():
         ftp.retrbinary("RETR users.txt", open("users.txt", "wb").write)  # TODO Hide file
     print("\n===LOGIN===")
@@ -36,10 +35,11 @@ if __name__ == "__main__":
                 else:
                     print("Wrong password")
                     loggedUser = "WRONG_PASSWORD"
-                    util.exitProgram()#TODO Don't exit, prompt again for password
+                    exitProgram()#TODO Don't exit, prompt again for password
         if (loggedUser == "NULL"):
             print("No users found for entry " + givenUsr)
-            util.exitProgram()
+            exitProgram()
+    master_init(ftp)
     while True:
         print("[1] Create new note\n[2] Edit existing note\n[3] Delete note")
         inp=input("~ ")
