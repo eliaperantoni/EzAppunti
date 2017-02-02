@@ -1,3 +1,4 @@
+import sys
 def db_edit(file,line,index,new):
     with open(file,"r") as f:
         lines = f.readlines()
@@ -15,3 +16,7 @@ def db_edit(file,line,index,new):
     lines[line]=out
     with open(file, "w") as f:
         f.writelines(lines)
+
+def exitProgram():
+    input("Press enter to exit ")
+    sys.exit(0)

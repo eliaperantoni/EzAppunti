@@ -1,6 +1,7 @@
 from ftplib import FTP
 from util import *
 import hashlib
+import util
 import getpass #TODO Make this work
 import sys
 import os
@@ -10,16 +11,11 @@ user = "2289107"
 loggedUser="NULL"
 permissions=""
 currId=0 #TODO Make this work
-def exitProgram():
-    input("Press enter to exit ")
-    sys.exit(0)
 if __name__ == "__main__":
     ftp = FTP(host)
     print("Connecting to: "+host+":"+user+":"+"******")
     ftp.login(user,pasw)
     print("Successfully connected (Perhaps) to the host, downloading users.txt")#TODO Fix connection failed detection
-    if "users.txt" in ftp.nlst():
-        ftp.retrbinary("RETR users.txt",open("users.txt","wb").write)#TODO Hide file
     print("\n===LOGIN===")
     givenUsr=input("Username: ")
     givenPsw = input("Password: ")
@@ -37,10 +33,10 @@ if __name__ == "__main__":
                 else:
                     print("Wrong password")
                     loggedUser="WRONG_PASSWORD"
-                    exitProgram()
+                    util.exitProgram()
         if(loggedUser=="NULL"):
             print("No users found for entry "+givenUsr+" or not enough permissions")
-            exitProgram()
+            util.exitProgram()
     print("Use 'cmds' to get a list of available commands")
     while(True):
         i=input("$~ ")
