@@ -1,4 +1,5 @@
 from ftplib import FTP
+from util import *
 import hashlib
 import getpass #TODO Make this work
 import sys
@@ -55,7 +56,7 @@ if __name__ == "__main__":
             out+=";0"
             open("users.txt","a").write("\n"+out)
             ftp.storbinary("STOR users.txt",open("users.txt","rb"))
-        elif(i=="cup"):#TODO Make this a little bit better and more reliable
+        elif(i=="cup"):
             i=input("\tWhich user? ")
             x=-1
             with open("users.txt") as f:
@@ -65,20 +66,7 @@ if __name__ == "__main__":
                     if(data[1]==i):
                         print("\tCurrent permissions: "+data[3])
                         inp=input("\tWhat would be the new permissions? ")
-                        temp=open("users.txt","r").read()
-                        out=""
-                        lineData=temp.split("\n")[x].split(";")
-                        for i in range(3):
-                            out+=lineData[i]+";"
-                        out+=inp+";"
-                        out+=lineData[4]
-                        with open("users.txt", "r") as file:
-                            lines = file.readlines()
-                        if not(lines[-1]==lines[x]):
-                            out+="\n"
-                        lines[x]=out
-                        with open("users.txt", "w") as file:
-                            file.writelines(lines)
+                        db_edit("users.txt",x,3,inp)
                         ftp.storbinary("STOR users.txt", open("users.txt", "rb"))
                         break
         elif(i=="ls"):
