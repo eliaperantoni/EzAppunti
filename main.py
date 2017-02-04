@@ -1,19 +1,11 @@
 from lib.master import *
 import hashlib
-from ftplib import FTP
+from lib.actions import *
 from lib.util import *
+from lib.updown import *
 #id/username/password/permessions/karma
 credentials=[]
 loggedUser="NULL"#Don't refer to this, use credentials[1]
-file=""
-def fn_write_file(file):
-    file1=open("data/"+file+".txt","w")
-    riga="1"
-    while riga!="":
-        riga=input()
-        file1.write(riga)
-        file1.write("\n")
-    file1.close
 if __name__ == "__main__":
     print("\nEzAppunti v1.0")
     ftp=connectToServer()
@@ -44,9 +36,15 @@ if __name__ == "__main__":
         print("[1] Create new note\n[2] Edit existing note\n[3] Delete note")
         inp=input("~ ")
         if(inp=="1"):
-            if(data[3]=="*"or data[3]=="**"):
-                file=input("How do you want to name the file? ")
-                print("What do you want to write inside the file? ")
-                fn_write_file(file)
+            if(data[3]=="**"or data[3]=="***"):
+                v=[]
+                fileName=input("How do you want to name the file? ")
+                print("What do you want to write inside the file? Write exit to finish")
+                i=""
+                while(i!="exit"):
+                    i=input("")
+                    v.append(i)
+                actions_create_note(fileName,v)
             else:
-                print("You don't have right to write files\n")
+                print("You don't have the right to write new files\n")
+    os.remove("master.txt")

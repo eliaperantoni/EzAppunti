@@ -11,6 +11,8 @@ if __name__ == "__main__":
     ftp=connectToServer()
     print("Connecting to: "+host+":"+user+":"+"******")
     print("Successfully connected (Perhaps) to the host, downloading users.txt")#TODO Fix connection failed detection
+    if "users.txt" in ftp.nlst():
+        ftp.retrbinary("RETR users.txt", open("users.txt", "wb").write)  # TODO Hide file
     print("\n===LOGIN===")
     givenUsr=input("Username: ")
     givenPsw = input("Password: ")
@@ -19,7 +21,7 @@ if __name__ == "__main__":
             data = line_terminated.split(";")
             if(int(data[0])>currId):
                 currId=int(data[0])
-            if (data[1] == givenUsr and data[3]=="**"):
+            if (data[1] == givenUsr and data[3]=="***"):
                 if(hashlib.sha256(givenPsw.encode('utf-8')).hexdigest() == data[2]):
                     print("\nLogged successfully to " + givenUsr)
                     loggedUser=givenUsr
@@ -45,7 +47,7 @@ if __name__ == "__main__":
             out += ";"
             out+=input("\tPermissions: ")
             out+=";0"
-            open("users.txt","a").write("\n"+out)
+            open("users.txt","a").write(out+"\n")
             ftp.storbinary("STOR users.txt",open("users.txt","rb"))
         elif(i=="cup"):
             i=input("\tWhich user? ")

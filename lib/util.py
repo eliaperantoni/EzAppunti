@@ -10,6 +10,8 @@ def db_edit(file,line,index,new):
         x+=1
         if(x==index):
             out+=new
+            if (items[x] == items[-1]):
+                out += "\n"
         else:
             out+=items[x]
         if not(items[x]==items[-1]):

@@ -30,7 +30,7 @@ def master_append(ftp,path,titolo,autore,dataCalendario,tags):
         out+=i
         if(tags[x]!=tags[-1]):
             out+=","
-    out+="\n"#TODO Fix NewLines
+    out+="\n"
     open(path,"a").write(out)
     ftp.storbinary("STOR master.txt", open(path, "rb"))
 
