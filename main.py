@@ -37,14 +37,20 @@ if __name__ == "__main__":
         inp=input("~ ")
         if(inp=="1"):
             if(data[3]=="**"or data[3]=="***"):
+                tag=[]
+                app=" "
                 v=[]
                 fileName=input("How do you want to name the file? ")
-                print("What do you want to write inside the file? Write exit to finish")
-                i=""
-                while(i!="exit"):
+                print("Write the tag, wehn you're done send an empty line")
+                while app!="":
+                    app=input()
+                    tag.append(app)
+                tag.pop(-1)
+                print("What do you want to write inside the file? When you're done, send an empty line")
+                i=" "
+                while(i!=""):
                     i=input("")
                     v.append(i)
-                actions_create_note(fileName,v)
+                actions_create_note("master.txt",fileName,v,credentials,ftp,tag)
             else:
                 print("You don't have the right to write new files\n")
-    os.remove("master.txt")

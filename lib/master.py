@@ -16,14 +16,8 @@ Use master_ls() to get a list of all entries
 <string> dataCalendario is the date wich the note was written, should be gathered with time.time()
 <string[]> tags is an arrays of strings containing the tags of the note
 '''
-def master_append(ftp,path,titolo,autore,dataCalendario,tags):
-    max = 0
-    with open(path) as f:
-        for line_terminated in f:
-            data = line_terminated.split(";")
-            if(line_terminated[0]!="" and int(line_terminated[0])>max):
-                max=int(line_terminated[0])
-    out=str(max+1)+";"+titolo+";"+autore+";"+dataCalendario+";0;0;0;"
+def master_append(id,ftp,path,titolo,autore,dataCalendario,tags):
+    out=str(id)+";"+titolo+";"+autore+";"+str(dataCalendario)+";0;0;0;"
     x=-1
     for i in tags:
         x+=1
@@ -33,7 +27,6 @@ def master_append(ftp,path,titolo,autore,dataCalendario,tags):
     out+="\n"
     open(path,"a").write(out)
     ftp.storbinary("STOR master.txt", open(path, "rb"))
-
 '''
 <string> id is the the id of the entry
 '''
