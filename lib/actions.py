@@ -1,7 +1,7 @@
 from lib.util import *
 from lib.updown import *
 from lib.master import *
-from os import
+import os
 import time
 def actions_create_note(masterPath,fileName,linesVector,credentials,ftp,tag):
     id=0
