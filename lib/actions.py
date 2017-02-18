@@ -1,7 +1,7 @@
 from lib.util import *
 from lib.updown import *
 from lib.master import *
-import os
+from os import
 import time
 def actions_create_note(masterPath,fileName,linesVector,credentials,ftp,tag):
     id=0
@@ -17,6 +17,5 @@ def actions_create_note(masterPath,fileName,linesVector,credentials,ftp,tag):
     f1.close()
     updown_upload(ftp,"data/"+str(id)+".txt",str(id)+".txt")
     master_append(id,ftp,masterPath,fileName,credentials[1],time.time(),tag)
-if __name__=="__main__":
-    id=11
-    updown_upload(connectToServer(),"../"+"data/"+str(id)+".txt",str(id)+".txt")
+def actions_edit_note(id):
+    os.startfile("data/"+str(id)+".txt")

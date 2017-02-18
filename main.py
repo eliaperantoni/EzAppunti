@@ -3,6 +3,10 @@ import hashlib
 from lib.actions import *
 from lib.util import *
 from lib.updown import *
+def ls_note(ftp):
+    for i in range(len(master_ls(ftp, "master.txt"))):
+        id, nome, autore, data, views, like, dislike, tagg = master_ls(ftp, "master.txt")[i].split(";")
+        print("\n", "ID:", id, "\n", "Nome:", nome, "\n", "Autore:", autore, "\n", "Data:", data, "\n", "Views:", views,"\n", "Like:", like, "\n", "Dislike", dislike, "\n", "Tag:",tagg)
 #id/username/password/permessions/karma
 credentials=[]
 loggedUser="NULL"#Don't refer to this, use credentials[1]
@@ -33,7 +37,7 @@ if __name__ == "__main__":
             exitProgram()
     master_init(ftp)
     while True:
-        print("[1] Create new note\n[2] Edit existing note\n[3] Delete note")
+        print("\nAdmin pannel:\n[1] Create new note\n[2] Edit existing note\n[3] Delete note\nUser pannel:\n[4] Lista")
         inp=input("~ ")
         if(inp=="1"):
             if(data[3]=="**"or data[3]=="***"):
@@ -54,3 +58,14 @@ if __name__ == "__main__":
                 actions_create_note("master.txt",fileName,v,credentials,ftp,tag)
             else:
                 print("You don't have the right to write new files\n")
+        if (inp == "2"):
+            if (data[3] == "**" or data[3] == "***"):
+                ls_note(ftp)
+                id=input("Input the id of note: ")
+                #updown_download(ftp,"data/"+id+".txt",id+".txt")
+                actions_edit_note(id)
+
+        if(inp=="4"):
+            ls_note(ftp)
+
+

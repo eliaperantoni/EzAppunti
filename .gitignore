@@ -1,5 +1,6 @@
 users.txt
-data/
+data/*
+!data/.gitkeep
 master.txt
 # Byte-compiled / optimized / DLL files
 __pycache__/
