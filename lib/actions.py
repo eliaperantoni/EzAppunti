@@ -17,5 +17,3 @@ def actions_create_note(masterPath,fileName,linesVector,credentials,ftp,tag):
     f1.close()
     updown_upload(ftp,"data/"+str(id)+".txt",str(id)+".txt")
     master_append(id,ftp,masterPath,fileName,credentials[1],time.time(),tag)
-def actions_edit_note(id):
-    os.startfile("data/"+str(id)+".txt")

@@ -7,9 +7,9 @@ def ls_note(ftp):
     for i in range(len(master_ls(ftp, "master.txt"))):
         id, nome, autore, data, views, like, dislike, tagg = master_ls(ftp, "master.txt")[i].split(";")
         print("\n", "ID:", id, "\n", "Nome:", nome, "\n", "Autore:", autore, "\n", "Data:", data, "\n", "Views:", views,"\n", "Like:", like, "\n", "Dislike", dislike, "\n", "Tag:",tagg)
-#id/username/password/permessions/karma
+#id/username/password/permessi/karma
 credentials=[]
-loggedUser="NULL"#Don't refer to this, use credentials[1]
+loggedUser="NULL"#NON UTILIZZARE QUEST VARIABILE, USARE credentials[1] PER RICEVERE L'USERNAME DELL'UTENTE LOGGATO
 if __name__ == "__main__":
     print("\nEzAppunti v1.0")
     ftp=connectToServer()
@@ -31,13 +31,13 @@ if __name__ == "__main__":
                 else:
                     print("Wrong password")
                     loggedUser = "WRONG_PASSWORD"
-                    exitProgram()#TODO Don't exit, prompt again for password
+                    exitProgram()#FIXME Non uscire dal programma, chiedi di nuovo la password
         if (loggedUser == "NULL"):
             print("No users found for entry " + givenUsr)
             exitProgram()
     master_init(ftp)
     while True:
-        print("\nAdmin pannel:\n[1] Create new note\n[2] Edit existing note\n[3] Delete note\nUser pannel:\n[4] Lista")
+        print("\n[1] Create new note\n[2] Edit existing note\n[3] Delete note\n[4] Lista")
         inp=input("~ ")
         if(inp=="1"):
             if(data[3]=="**"or data[3]=="***"):
@@ -45,7 +45,7 @@ if __name__ == "__main__":
                 app=" "
                 v=[]
                 fileName=input("How do you want to name the file? ")
-                print("Write the tag, wehn you're done send an empty line")
+                print("Write the tag, when you're done send an empty line")
                 while app!="":
                     app=input()
                     tag.append(app)
@@ -55,17 +55,16 @@ if __name__ == "__main__":
                 while(i!=""):
                     i=input("")
                     v.append(i)
+                print("\nLoading....\n")
                 actions_create_note("master.txt",fileName,v,credentials,ftp,tag)
             else:
                 print("You don't have the right to write new files\n")
         if (inp == "2"):
             if (data[3] == "**" or data[3] == "***"):
                 ls_note(ftp)
-                id=input("Input the id of note: ")
-                #updown_download(ftp,"data/"+id+".txt",id+".txt")
-                actions_edit_note(id)
+                id=input("\nInput the id of note: ")
+                updown_download(ftp,"data/"+id+".txt",id+".txt")
+                os.startfile(os.path.normpath("data/" + id + ".txt"))
 
         if(inp=="4"):
             ls_note(ftp)
-
-

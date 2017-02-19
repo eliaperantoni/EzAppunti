@@ -1,5 +1,6 @@
 import sys
 from ftplib import FTP
+outtaLib = "../"
 def db_edit(file,line,index,new):
     with open(file,"r") as f:
         lines = f.readlines()
