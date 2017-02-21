@@ -53,6 +53,7 @@ def master_delete(ftp,path,id):
 <string> new is the new string to be inserted in the specified index
 '''
 def master_edit(ftp,path,id,index,new):
+
     x=-1
     with open(path) as f:
         for line_terminated in f:
@@ -74,4 +75,3 @@ def master_init(ftp):
 
 if __name__=="__main__":
     print("Debugging master.py\n")
-    print(master_ls(connectToServer(),"../master.txt"))
