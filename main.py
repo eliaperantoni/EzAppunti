@@ -24,9 +24,9 @@ if __name__ == "__main__":
     givenPsw = input("Password: ")
     with open("users.txt") as f:
         for line_terminated in f:
-            data = line_terminated.split(";")
-            if (data[1] == givenUsr):
-                if (hashlib.sha256(givenPsw.encode('utf-8')).hexdigest() == data[2]):
+            userData = line_terminated.split(";")
+            if (userData[1] == givenUsr):
+                if (hashlib.sha256(givenPsw.encode('utf-8')).hexdigest() == userData[2]):
                     print("\nLogged successfully to " + givenUsr)
                     loggedUser=givenUsr
                     credentials = line_terminated.split(";")
@@ -47,7 +47,7 @@ if __name__ == "__main__":
         print("\n[1]Note add\n[2]Select note")
         _inp=input("~ ")
         if(_inp=="1"):
-            if(data[3]=="**"or data[3]=="***"):
+            if(credentials[3]=="**"or credentials[3]=="***"):
                 tag=[]
                 app=" "
                 fileName=input("How do you want to name the file? ")
@@ -75,17 +75,17 @@ if __name__ == "__main__":
             while inpE!="4":
                 print("\n[1]Edit title\n[2]Edit tags\n[3]Edit text\n[4]Exit")
                 inpE=input("~ ")
-                if inpE=="3":
+                if inpE=="3" and (credentials[3]=="**"or credentials[3]=="***"):
                     os.startfile(os.path.normpath("data/" + id_ + ".txt"))
                     input("Press enter when you're done editing, remember to save!")
                     updown_upload(ftp,"data/"+id_+".txt",id_+".txt")
                     updateMap()
-                if inpE=="1":
+                if inpE=="1" and (credentials[3]=="**"or credentials[3]=="***"):
                     print(masterMap[id_].split(";")[1])
                     newTitle = input("Which is the new title?")
                     master_edit(ftp,"master.txt",id_,1,newTitle)
                     updateMap()
-                
+
 
 
 
