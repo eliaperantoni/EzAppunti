@@ -44,7 +44,7 @@ if __name__ == "__main__":
     updateMap()
     while True:
         ls_note(ftp)
-        print("\n[1]Note add\n[2]Select note")
+        print("\n[1]Note add\n[2]Select note\n[3]research")
         _inp=input("~ ")
         if(_inp=="1"):
             if(credentials[3]=="**"or credentials[3]=="***"):
@@ -64,6 +64,13 @@ if __name__ == "__main__":
                 actions_create_note("master.txt",fileName,v,credentials,ftp,tag)
             else:
                 print("You don't have the right to write new files\n")
+        if(_inp=="3"):
+            researchStr=input("What do you want to research?")
+            for k,v in masterMap.items():
+                    if researchStr in v:
+                        print(v.split[";"])
+            input()
+
         if(_inp=="2"):
             print("Which note do you want to select?")
             id_=input("~ ")
