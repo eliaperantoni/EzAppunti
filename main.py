@@ -88,12 +88,11 @@ if __name__ == "__main__":
                 if inpE=="2" and (credentials[3]=="**"or credentials[3]=="***"):
                     inpTag=""
                     inpStr="a"
-                    print(masterMap[id_].split(";")[7])
-                    while inpStr!="":
-                        inpStr=input("What's the news tag?")
-                        inpTag+=inpStr+","
-                    master_edit(ftp,"master.txt",id_,7,inpTag)
+                    print("The old tags were: "+masterMap[id_].split(";")[7])
+                    inpStr=input("What's the new tags?")
+                    master_edit(ftp,"master.txt",id_,7,inpStr)
                     updateMap()
+                    print("The new tags are: "+masterMap[id_].split(";")[7])
 
 
 
