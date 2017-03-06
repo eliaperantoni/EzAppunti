@@ -65,11 +65,14 @@ if __name__ == "__main__":
             else:
                 print("You don't have the right to write new files\n")
         if(_inp=="3"):
+            updateMap()
             researchStr=input("What do you want to research?")
             for k,v in masterMap.items():
                     if researchStr in v:
-                        print(v.split[";"])
-            input()
+                        print(v.split(";"))
+                    if researchStr in k:
+                        print(k)
+            input("send an empty line when you're done")
 
         if(_inp=="2"):
             print("Which note do you want to select?")
@@ -79,8 +82,8 @@ if __name__ == "__main__":
             print("Tags: "+masterMap[id_].split(";")[7])
             print("<<"+open("data/"+str(id_)+".txt","r").read()+">>")
             inpE=""
-            while inpE!="4":
-                print("\n[1]Edit title\n[2]Edit tags\n[3]Edit text\n[4]Exit")
+            while inpE!="5":
+                print("\n[1]Edit title\n[2]Edit tags\n[3]Edit text\n[4]Delete note\n[5]Exit")
                 inpE=input("~ ")
                 if inpE=="3" and (credentials[3]=="**"or credentials[3]=="***"):
                     os.startfile(os.path.normpath("data/" + id_ + ".txt"))
@@ -100,6 +103,8 @@ if __name__ == "__main__":
                     master_edit(ftp,"master.txt",id_,7,inpStr)
                     updateMap()
                     print("The new tags are: "+masterMap[id_].split(";")[7])
+                if inpE=="4" and (credentials[3]=="**"or credentials[3]=="***"):
+
 
 
 
