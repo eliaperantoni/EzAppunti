@@ -13,6 +13,7 @@ def ls_note(ftp):
         print("\n", "ID:", id, "\n", "Nome:", nome, "\n", "Autore:", autore, "\n", "Data:", data, "\n", "Views:", views,"\n", "Like:", like, "\n", "Dislike", dislike, "\n", "Tag:",tagg)
 #id/username/password/permessi/karma
 credentials=[]
+filter=[]
 loggedUser="NULL"#NON UTILIZZARE QUEST VARIABILE, USARE credentials[1] PER RICEVERE L'USERNAME DELL'UTENTE LOGGATO
 if __name__ == "__main__":
     print("\nEzAppunti v1.0")
@@ -43,8 +44,21 @@ if __name__ == "__main__":
     masterMap={}
     updateMap()
     while True:
+
         ls_note(ftp)
-        print("\n[1]Note add\n[2]Select note\n[3]research")
+        print("")
+        if filter!=[]:
+            activeFiltersStr = ""
+            for i in filter:
+                activeFiltersStr+=(i+" ")
+            print("The filters are: "+activeFiltersStr)
+            del activeFiltersStr
+        else:
+            print("There are no filters")
+        if filter==[]:
+            print("\n[1]Note add\n[2]Select note\n[3]Add filter")
+        else:
+            print("\n[1]Note add\n[2]Select note\n[3]Remove filter")
         _inp=input("~ ")
         if(_inp=="1"):
             if(credentials[3]=="**"or credentials[3]=="***"):
@@ -65,15 +79,14 @@ if __name__ == "__main__":
             else:
                 print("You don't have the right to write new files\n")
         if(_inp=="3"):
-            updateMap()
-            researchStr=input("What do you want to research?")
-            for k,v in masterMap.items():
-                    if researchStr in v:
-                        print(v.split(";"))
-                    if researchStr in k:
-                        print(k)
-            input("send an empty line when you're done")
-
+            if filter==[]:
+                updateMap()
+                researchStr=""
+                researchStr=input("What's the filters? ")
+                for i in researchStr.split(" "):
+                    filter.append(i)
+            else:
+                filter=[]
         if(_inp=="2"):
             print("Which note do you want to select?")
             id_=input("~ ")
@@ -104,49 +117,4 @@ if __name__ == "__main__":
                     updateMap()
                     print("The new tags are: "+masterMap[id_].split(";")[7])
                 if inpE=="4" and (credentials[3]=="**"or credentials[3]=="***"):
-
-
-
-
-
-    '''
-    while True:
-        print("\n[1] Create new note\n[2] Edit existing note\n[3] Delete note\n[4] Lista")
-        inp=input("~ ")
-        if(inp=="1"):
-            if(data[3]=="**"or data[3]=="***"):
-                tag=[]
-                app=" "
-                fileName=input("How do you want to name the file? ")
-                print("Write the tag, when you're done send an empty line")
-                while app!="":
-                    app=input()
-                    tag.append(app)
-                tag.pop(-1)
-                open("temp.txt","w").close()
-                os.startfile(os.path.normpath("temp.txt"))
-                input("Press enter after you've finished writing, remember to save the file!")
-                v=open("temp.txt","r").readlines()
-                print("\nLoading....\n")
-                actions_create_note("master.txt",fileName,v,credentials,ftp,tag)
-            else:
-                print("You don't have the right to write new files\n")
-        if (inp == "2"):
-            if (data[3] == "**" or data[3] == "***"):
-                inpE=0
-                while inpE!="4":
-                    ls_note(ftp)
-                    print("\n\t[1]Edit title \n\t[2]Edit tags \n\t[3]Edit text \n\t[4]exit")
-                    inpE=input("\t~ ")
-                    if inpE=="3":
-                        id=input("\nInput the id of note: ")
-                        updown_download(ftp,"data/"+id+".txt",id+".txt")
-                        os.startfile(os.path.normpath("data/" + id + ".txt"))
-                        updown_upload(ftp,"data/"+id+".txt",id+".txt")
-                    if inpE=="1":
-                        id=input("\nInput the id of note: ")
-                        f1.opne("master.txt")
-
-        if(inp=="4"):
-            ls_note(ftp)
-            '''
+                    print("work in progress")
