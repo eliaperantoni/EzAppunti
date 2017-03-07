@@ -15,12 +15,13 @@ def ls_note(ftp):
             print("\n", "ID:", id, "\n", "Nome:", nome, "\n", "Autore:", autore, "\n", "Data:", data, "\n", "Views:", views, "\n", "Like:", like, "\n", "Dislike", dislike, "\n", "Tag:", tagg)
     else:
         for i in range(len(master_ls(ftp, "master.txt"))):
-            id, nome, autore, data, views, like, dislike, tagg = master_ls(ftp, "master.txt")[i].split(";")
+
+            id, nome, autore, data, views, like, dislike, tagg = master_ls(ftp, "master.txt")[i].lower().split(";")
             data=time.ctime(float(data))
             for j in range(len(filter)):
-                if nome==filter[j] or autore==filter[j] or tagg==filter[j]:
-                    vector.append("\n", "ID:", id, "\n", "Nome:", nome, "\n", "Autore:", autore, "\n", "Data:", data, "\n", "Views:", views,"\n", "Like:", like, "\n", "Dislike", dislike, "\n", "Tag:",tagg)
-        print (vector)
+                if filter[j] in nome or filter[j] in autore or filter[j] in tagg:
+                    print("\n", "ID:", id, "\n", "Nome:", nome, "\n", "Autore:", autore, "\n", "Data:", data, "\n", "Views:", views,"\n", "Like:", like, "\n", "Dislike", dislike, "\n", "Tag:",tagg)
+
 #id/username/password/permessi/karma
 credentials=[]
 filter=[]
@@ -54,7 +55,6 @@ if __name__ == "__main__":
     masterMap={}
     updateMap()
     while True:
-
         ls_note(ftp)
         print("")
         if filter!=[]:
@@ -92,9 +92,10 @@ if __name__ == "__main__":
             if filter==[]:
                 updateMap()
                 researchStr=""
-                researchStr=input("What's the filters? ")
+                researchStr=input("What's the filters? ").lower()
                 for i in researchStr.split(" "):
                     filter.append(i)
+
             else:
                 filter=[]
         if(_inp=="2"):
