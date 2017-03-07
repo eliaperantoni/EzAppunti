@@ -6,11 +6,21 @@ from lib.updown import *
 def updateMap():
     for i in master_ls(ftp,"master.txt"):
         masterMap[i.split(";")[0]]= i
-def ls_note(ftp):
-    for i in range(len(master_ls(ftp, "master.txt"))):
-        id, nome, autore, data, views, like, dislike, tagg = master_ls(ftp, "master.txt")[i].split(";")
-        data=time.ctime(float(data))
-        print("\n", "ID:", id, "\n", "Nome:", nome, "\n", "Autore:", autore, "\n", "Data:", data, "\n", "Views:", views,"\n", "Like:", like, "\n", "Dislike", dislike, "\n", "Tag:",tagg)
+def ls_note(ftp, filter):
+    vector=[]
+    if filter==[]:
+        for i in range(len(master_ls(ftp, "master.txt"))):
+            id, nome, autore, data, views, like, dislike, tagg = master_ls(ftp, "master.txt")[i].split(";")
+            data = time.ctime(float(data))
+            print("\n", "ID:", id, "\n", "Nome:", nome, "\n", "Autore:", autore, "\n", "Data:", data, "\n", "Views:", views, "\n", "Like:", like, "\n", "Dislike", dislike, "\n", "Tag:", tagg)
+    else:
+        for i in range(len(master_ls(ftp, "master.txt"))):
+            id, nome, autore, data, views, like, dislike, tagg = master_ls(ftp, "master.txt")[i].split(";")
+            data=time.ctime(float(data))
+            for j in range(len(filter)):
+                if nome==filter[j] or autore==filter[j] or tagg==filter[j]:
+                    vector.append("\n", "ID:", id, "\n", "Nome:", nome, "\n", "Autore:", autore, "\n", "Data:", data, "\n", "Views:", views,"\n", "Like:", like, "\n", "Dislike", dislike, "\n", "Tag:",tagg)
+        print (vector)
 #id/username/password/permessi/karma
 credentials=[]
 filter=[]
