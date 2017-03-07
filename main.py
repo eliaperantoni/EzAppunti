@@ -6,7 +6,7 @@ from lib.updown import *
 def updateMap():
     for i in master_ls(ftp,"master.txt"):
         masterMap[i.split(";")[0]]= i
-def ls_note(ftp, filter):
+def ls_note(ftp):
     vector=[]
     if filter==[]:
         for i in range(len(master_ls(ftp, "master.txt"))):
