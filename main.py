@@ -23,6 +23,7 @@ def ls_note(ftp, filter):
         print (vector)
 #id/username/password/permessi/karma
 credentials=[]
+filter=[]
 loggedUser="NULL"#NON UTILIZZARE QUEST VARIABILE, USARE credentials[1] PER RICEVERE L'USERNAME DELL'UTENTE LOGGATO
 if __name__ == "__main__":
     print("\nEzAppunti v1.0")
@@ -53,8 +54,21 @@ if __name__ == "__main__":
     masterMap={}
     updateMap()
     while True:
+
         ls_note(ftp)
-        print("\n[1]Note add\n[2]Select note\n[3]research")
+        print("")
+        if filter!=[]:
+            activeFiltersStr = ""
+            for i in filter:
+                activeFiltersStr+=(i+" ")
+            print("The filters are: "+activeFiltersStr)
+            del activeFiltersStr
+        else:
+            print("There are no filters")
+        if filter==[]:
+            print("\n[1]Note add\n[2]Select note\n[3]Add filter")
+        else:
+            print("\n[1]Note add\n[2]Select note\n[3]Remove filter")
         _inp=input("~ ")
         if(_inp=="1"):
             if(credentials[3]=="**"or credentials[3]=="***"):
@@ -75,15 +89,14 @@ if __name__ == "__main__":
             else:
                 print("You don't have the right to write new files\n")
         if(_inp=="3"):
-            updateMap()
-            researchStr=input("What do you want to research?")
-            for k,v in masterMap.items():
-                    if researchStr in v:
-                        print(v.split(";"))
-                    if researchStr in k:
-                        print(k)
-            input("send an empty line when you're done")
-
+            if filter==[]:
+                updateMap()
+                researchStr=""
+                researchStr=input("What's the filters? ")
+                for i in researchStr.split(" "):
+                    filter.append(i)
+            else:
+                filter=[]
         if(_inp=="2"):
             print("Which note do you want to select?")
             id_=input("~ ")
@@ -114,8 +127,4 @@ if __name__ == "__main__":
                     updateMap()
                     print("The new tags are: "+masterMap[id_].split(";")[7])
                 if inpE=="4" and (credentials[3]=="**"or credentials[3]=="***"):
-                    1+1
-
-
-
-
+                    print("work in progress")
