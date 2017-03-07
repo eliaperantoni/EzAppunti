@@ -6,11 +6,21 @@ from lib.updown import *
 def updateMap():
     for i in master_ls(ftp,"master.txt"):
         masterMap[i.split(";")[0]]= i
-def ls_note(ftp):
-    for i in range(len(master_ls(ftp, "master.txt"))):
-        id, nome, autore, data, views, like, dislike, tagg = master_ls(ftp, "master.txt")[i].split(";")
-        data=time.ctime(float(data))
-        print("\n", "ID:", id, "\n", "Nome:", nome, "\n", "Autore:", autore, "\n", "Data:", data, "\n", "Views:", views,"\n", "Like:", like, "\n", "Dislike", dislike, "\n", "Tag:",tagg)
+def ls_note(ftp, filter):
+    vector=[]
+    if filter==[]:
+        for i in range(len(master_ls(ftp, "master.txt"))):
+            id, nome, autore, data, views, like, dislike, tagg = master_ls(ftp, "master.txt")[i].split(";")
+            data = time.ctime(float(data))
+            print("\n", "ID:", id, "\n", "Nome:", nome, "\n", "Autore:", autore, "\n", "Data:", data, "\n", "Views:", views, "\n", "Like:", like, "\n", "Dislike", dislike, "\n", "Tag:", tagg)
+    else:
+        for i in range(len(master_ls(ftp, "master.txt"))):
+            id, nome, autore, data, views, like, dislike, tagg = master_ls(ftp, "master.txt")[i].split(";")
+            data=time.ctime(float(data))
+            for j in range(len(filter)):
+                if nome==filter[j] or autore==filter[j] or tagg==filter[j]:
+                    vector.append("\n", "ID:", id, "\n", "Nome:", nome, "\n", "Autore:", autore, "\n", "Data:", data, "\n", "Views:", views,"\n", "Like:", like, "\n", "Dislike", dislike, "\n", "Tag:",tagg)
+        print (vector)
 #id/username/password/permessi/karma
 credentials=[]
 loggedUser="NULL"#NON UTILIZZARE QUEST VARIABILE, USARE credentials[1] PER RICEVERE L'USERNAME DELL'UTENTE LOGGATO
@@ -104,49 +114,8 @@ if __name__ == "__main__":
                     updateMap()
                     print("The new tags are: "+masterMap[id_].split(";")[7])
                 if inpE=="4" and (credentials[3]=="**"or credentials[3]=="***"):
+                    1+1
 
 
 
 
-
-    '''
-    while True:
-        print("\n[1] Create new note\n[2] Edit existing note\n[3] Delete note\n[4] Lista")
-        inp=input("~ ")
-        if(inp=="1"):
-            if(data[3]=="**"or data[3]=="***"):
-                tag=[]
-                app=" "
-                fileName=input("How do you want to name the file? ")
-                print("Write the tag, when you're done send an empty line")
-                while app!="":
-                    app=input()
-                    tag.append(app)
-                tag.pop(-1)
-                open("temp.txt","w").close()
-                os.startfile(os.path.normpath("temp.txt"))
-                input("Press enter after you've finished writing, remember to save the file!")
-                v=open("temp.txt","r").readlines()
-                print("\nLoading....\n")
-                actions_create_note("master.txt",fileName,v,credentials,ftp,tag)
-            else:
-                print("You don't have the right to write new files\n")
-        if (inp == "2"):
-            if (data[3] == "**" or data[3] == "***"):
-                inpE=0
-                while inpE!="4":
-                    ls_note(ftp)
-                    print("\n\t[1]Edit title \n\t[2]Edit tags \n\t[3]Edit text \n\t[4]exit")
-                    inpE=input("\t~ ")
-                    if inpE=="3":
-                        id=input("\nInput the id of note: ")
-                        updown_download(ftp,"data/"+id+".txt",id+".txt")
-                        os.startfile(os.path.normpath("data/" + id + ".txt"))
-                        updown_upload(ftp,"data/"+id+".txt",id+".txt")
-                    if inpE=="1":
-                        id=input("\nInput the id of note: ")
-                        f1.opne("master.txt")
-
-        if(inp=="4"):
-            ls_note(ftp)
-            '''
