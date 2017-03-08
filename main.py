@@ -3,6 +3,7 @@ import hashlib
 from lib.actions import *
 from lib.util import *
 from lib.updown import *
+import os
 def updateMap():
     for i in master_ls(ftp,"master.txt"):
         masterMap[i.split(";")[0]]= i
@@ -55,6 +56,7 @@ if __name__ == "__main__":
     masterMap={}
     updateMap()
     while True:
+        exitLoop=True
         ls_note(ftp)
         print("")
         if filter!=[]:
@@ -100,32 +102,35 @@ if __name__ == "__main__":
                 filter=[]
         if(_inp=="2"):
             print("Which note do you want to select?")
-            id_=input("~ ")
-            updown_download(ftp,"data/"+id_+".txt",id_+".txt")
-            print("\nTitle: "+masterMap[id_].split(";")[1])
-            print("Tags: "+masterMap[id_].split(";")[7])
-            print("<<"+open("data/"+str(id_)+".txt","r").read()+">>")
+            id=input("~ ")
+            updown_download(ftp,"data/" + id + ".txt", id + ".txt")
+            print("\nTitle: " + masterMap[id].split(";")[1])
+            print("Tags: " + masterMap[id].split(";")[7])
+            print("<<" + open("data/" + str(id) + ".txt", "r").read() + ">>")
             inpE=""
-            while inpE!="5":
+            while inpE!="5" and exitLoop!=False:
                 print("\n[1]Edit title\n[2]Edit tags\n[3]Edit text\n[4]Delete note\n[5]Exit")
                 inpE=input("~ ")
                 if inpE=="3" and (credentials[3]=="**"or credentials[3]=="***"):
-                    os.startfile(os.path.normpath("data/" + id_ + ".txt"))
+                    os.startfile(os.path.normpath("data/" + id + ".txt"))
                     input("Press enter when you're done editing, remember to save!")
-                    updown_upload(ftp,"data/"+id_+".txt",id_+".txt")
+                    updown_upload(ftp,"data/" + id + ".txt", id + ".txt")
                     updateMap()
                 if inpE=="1" and (credentials[3]=="**"or credentials[3]=="***"):
-                    print(masterMap[id_].split(";")[1])
+                    print(masterMap[id].split(";")[1])
                     newTitle = input("Which is the new title?")
-                    master_edit(ftp,"master.txt",id_,1,newTitle)
+                    master_edit(ftp,"master.txt", id, 1, newTitle)
                     updateMap()
                 if inpE=="2" and (credentials[3]=="**"or credentials[3]=="***"):
                     inpTag=""
                     inpStr="a"
-                    print("The old tags were: "+masterMap[id_].split(";")[7])
+                    print("The old tags were: " + masterMap[id].split(";")[7])
                     inpStr=input("What's the new tags?")
-                    master_edit(ftp,"master.txt",id_,7,inpStr)
+                    master_edit(ftp,"master.txt", id, 7, inpStr)
                     updateMap()
-                    print("The new tags are: "+masterMap[id_].split(";")[7])
+                    print("The new tags are: " + masterMap[id].split(";")[7])
                 if inpE=="4" and (credentials[3]=="**"or credentials[3]=="***"):
-                    print("work in progress")
+                    os.remove("data/{0}.txt".format(id))
+                    master_delete(ftp,"master.txt",id)
+                    updateMap()
+                    exitLoop=False
