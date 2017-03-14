@@ -6,6 +6,24 @@ import sys
 import os
 loggedUser="NULL"
 permissions=""
+def addUser(username,password,ftp):
+    currId=0
+    for i in open("users.txt", "r"):
+        try:
+            if(i.split(";")[1]==username):
+                return 1
+        except:
+            "End of file"
+        try:
+            if (int(i.split(";")[0]) > currId):
+                currId = int(i.split(";")[0])
+        except:
+            "End of file"
+    currId += 1
+    out = ""
+    out += str(currId) + ";" + username + ";" + hashlib.sha256(password.encode('utf-8')).hexdigest() + ";*;0"
+    open("users.txt", "a").write(out + "\n")
+    ftp.storbinary("STOR users.txt", open("users.txt", "rb"))
 currId=0 #TODO Make this work
 if __name__ == "__main__":
     ftp=connectToServer()
@@ -19,8 +37,7 @@ if __name__ == "__main__":
     with open("users.txt") as f:
         for line_terminated in f:
             data = line_terminated.split(";")
-            if(int(data[0])>currId):
-                currId=int(data[0])
+
             if (data[1] == givenUsr and data[3]=="***"):
                 if(hashlib.sha256(givenPsw.encode('utf-8')).hexdigest() == data[2]):
                     print("\nLogged successfully to " + givenUsr)
@@ -38,6 +55,9 @@ if __name__ == "__main__":
     while(True):
         i=input("$~ ")
         if(i=="add"):
+            for i in open("users.txt","r"):
+                if(int(i.split(";")[0])>currId):
+                    currId=int(i.split(";")[0])
             currId+=1
             out=""
             out+=str(currId)+";"

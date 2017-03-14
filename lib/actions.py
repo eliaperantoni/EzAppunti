@@ -1,6 +1,7 @@
 from lib.util import *
 from lib.updown import *
 from lib.master import *
+from users import *
 import os
 import time
 def actions_create_note(masterPath,fileName,linesVector,credentials,ftp,tag):
@@ -17,3 +18,11 @@ def actions_create_note(masterPath,fileName,linesVector,credentials,ftp,tag):
     f1.close()
     updown_upload(ftp,"data/"+str(id)+".txt",str(id)+".txt")
     master_append(id,ftp,masterPath,fileName,credentials[1],time.time(),tag)
+def actions_register(ftp,username,password,confirmPassword,mastertPath="master.txt"):
+    if password==confirmPassword:
+        code=addUser(username,password,ftp)
+        if(code==1):
+            print("A user named {0} already exists".format(username))
+            exitProgram()
+    else:
+        print("The passwords don't match")
