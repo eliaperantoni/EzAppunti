@@ -15,11 +15,9 @@ def ls_note(ftp):
     dict={}
     for i in master_ls(ftp,"master.txt"):
         dict[i.split(";")[dict2[ordination]]]=i
-    dict=sorted(dict)
     v=[]
-    for key, value in dict:
-        temp = [key, value]
-        v.append(temp)
+    for key in sorted(dict):
+        v.append(dict[key])
     ###
     if(isReverse):
         v=v[::-1]
@@ -158,7 +156,7 @@ if __name__ == "__main__":
                     updateMap()
                     exitLoop=False
         if _inp=="4":
-            inp=input("Ordinate for:\n[1]Id\n[2]Name\n[3]Date\n[4]Author\n[5]Toggle reverse\n")
+            inp=input("Ordinate for:\n[1]Id\n[2]Name\n[3]Date\n[5]Toggle reverse\n")
             if inp =="5":
                 isReverse=not isReverse
             else:
