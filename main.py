@@ -3,6 +3,7 @@ import hashlib
 from lib.actions import *
 from lib.util import *
 from lib.updown import *
+from lib.guiMain import *
 import os
 def updateMap():
     for i in master_ls(ftp,"master.txt"):
@@ -42,6 +43,12 @@ isReverse=False
 loggedUser="NULL"#NON UTILIZZARE QUEST VARIABILE, USARE credentials[1] PER RICEVERE L'USERNAME DELL'UTENTE LOGGATO
 if __name__ == "__main__":
     print("\nEzAppunti v1.0")
+    inp = input("[1] Text interface\n[2] Graphical interface\n")
+    if inp == "2":
+        app=EzGui("lib/")
+        app.show()
+    elif inp!="1":
+        exitProgram()
     ftp=connectToServer()
     if "users.txt" in ftp.nlst():
         ftp.retrbinary("RETR users.txt", open("users.txt", "wb").write)  # TODO Hide file

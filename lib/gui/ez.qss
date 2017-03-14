@@ -1,0 +1,55 @@
+QPushButton {
+    border:none;
+    outline: none;
+    background-color: #00d1b2;
+    padding:  6px 6px;
+    color: #fff;
+    border-style: outset;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+QPushButton:hover {
+    background-color: #00c4a7;
+    padding:  6px 6px;
+    color: #fff;
+    border-style: outset;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+QPushButton:pressed {
+    background-color: #00b89c;
+    padding:  6px 6px;
+    color: #fff;
+    border-style: outset;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+QLineEdit{
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    padding: 1px 6.5px;
+    border-style: outset;
+    border: 1px solid #dbdbdb;
+    color: #363636;
+    border-radius: 3px;
+    font-size: 14px;
+}
+QLineEdit:hover{
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    border-style: outset;
+    border: 1px solid #b5b5b5;
+    color: #363636;
+    border-radius: 3px;
+    font-size: 14px;
+}
+QLineEdit:focus{
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+   
+    border-style: outset;
+    border: 1px solid #00d1b2;
+    color: #363636;
+    border-radius: 3px;
+    font-size: 14px;
+}
