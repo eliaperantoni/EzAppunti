@@ -73,6 +73,9 @@ if __name__ == "__main__":
         password = input("Password: ")
         confirmPassword = input("Confirm password: ")
         actions_register(ftp,username,password,confirmPassword)
+    else:
+        print("Invalid option")
+        exitProgram()
     master_init(ftp)
     masterMap={}
     updateMap()
