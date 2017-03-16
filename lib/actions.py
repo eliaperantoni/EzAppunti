@@ -30,3 +30,10 @@ def actions_register(ftp, username, password, confirmPassword, mastertPath="mast
             exitProgram()
     else:
         print("The passwords don't match")
+
+def actions_like(id,user_id,masterMap,ftp):
+    for i in masterMap:
+        master_edit(ftp,"master.txt",id,6,user_id)
+        if user_id not in masterMap[id].split(";")[6]:
+            user_id+=masterMap[id].split(";")[6]
+            master_edit(ftp,"master.txt",id,6,user_id)

@@ -140,8 +140,8 @@ if __name__ == "__main__":
             print("Tags: " + masterMap[id].split(";")[7])
             print("<<" + open("data/" + str(id) + ".txt", "r").read() + ">>")
             inpE = ""
-            while inpE != "5" and exitLoop != False:
-                print("\n[1]Edit title\n[2]Edit tags\n[3]Edit text\n[4]Delete note\n[5]Exit")
+            while inpE != "0" and exitLoop != False:
+                print("\n[1]Edit title\n[2]Edit tags\n[3]Edit text\n[4]Delete note\n[5]Like\n[6]Dislike\n[0]Exit")
                 inpE = input("~ ")
                 if inpE == "3" and (credentials[3] == "**" or credentials[3] == "***"):
                     os.startfile(os.path.normpath("data/" + id + ".txt"))
@@ -166,9 +166,11 @@ if __name__ == "__main__":
                     master_delete(ftp, "master.txt", id)
                     updateMap()
                     exitLoop = False
+                if inpE=="5":
+                    actions_like(id,loggedUser,masterMap,ftp)
         if _inp == "4":
             inp = input("Ordinate for:\n[1]Id\n[2]Name\n[3]Date\n[5]Toggle reverse ordination\n")
-            if inp == "5":
+            if inp == "0":
                 isReverse = not isReverse
             else:
                 ordination = inp
