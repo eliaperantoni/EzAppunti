@@ -4,18 +4,14 @@ from lib.actions import *
 from lib.util import *
 from lib.updown import *
 import os
-
-
 def updateMap():
     for i in master_ls(ftp, "master.txt"):
         masterMap[i.split(";")[0]] = i
-
-
 def ls_note(ftp):
     vector = []
-    v = master_ls(ftp, "master.txt")
+    v = master_ls(ftp,"master.txt")
     ###
-    dict2 = {"1": 0, "2": 1, "3": 3, "4": 2}
+    dict2 = {"1":0,"2":1,"3":3,"4":2}
     dict = {}
     for i in master_ls(ftp, "master.txt"):
         dict[i.split(";")[dict2[ordination]]] = i
@@ -24,23 +20,19 @@ def ls_note(ftp):
         v.append(dict[key])
     ###
     if (isReverse):
-        v = v[::-1]
-    if filter == []:
+        v=v[::-1]
+    if filter==[]:
         for i in v:
             id, nome, autore, data, views, like, dislike, tagg = i.split(";")
             data = time.ctime(float(data))
-            print("\n", "ID:", id, "\n", "Nome:", nome, "\n", "Autore:", autore, "\n", "Data:", data, "\n", "Tag:",
-                  tagg)
+            print("\n","ID:",id,"\n","Nome:",nome,"\n","Autore:",autore,"\n","Data:",data,"\n","Views: ",views,"\n", "Tag:",tagg)
     else:
         for i in v:
             id, nome, autore, data, views, like, dislike, tagg = i.lower().split(";")
             data = time.ctime(float(data))
             for j in range(len(filter)):
                 if filter[j] in nome or filter[j] in autore or filter[j] in tagg:
-                    print("\n", "ID:", id, "\n", "Nome:", nome, "\n", "Autore:", autore, "\n", "Data:", data, "\n",
-                          "Tag:", tagg)
-
-
+                    print("\n","ID:",id,"\n","Nome:",nome,"\n","Autore:",autore,"\n","Data:",data,"\n","Views: ",views,"\n","Tag:", tagg)
 # id/username/password/permessi/karma
 credentials = []
 filter = []
@@ -108,8 +100,7 @@ if __name__ == "__main__":
                 tag = []
                 app = " "
                 fileName = input("How do you want to name the note? ")
-                print(
-                    "What tags will this note have? Press return after each tag\nPress return again to move to the next step")
+                print("What tags will this note have? Press return after each tag\nPress return again to move to the next step")
                 while app != "":
                     app = input()
                     tag.append(app)
@@ -129,12 +120,12 @@ if __name__ == "__main__":
                 researchStr = input("What's the filter?").lower()
                 for i in researchStr.split(" "):
                     filter.append(i)
-
             else:
                 filter = []
         if (_inp == "2"):
             print("Which note do you want to select?")
             id = input("~ ")
+            actions_visual(ftp,id)
             updown_download(ftp, "data/" + id + ".txt", id + ".txt")
             print("\nTitle: " + masterMap[id].split(";")[1])
             print("Tags: " + masterMap[id].split(";")[7])
