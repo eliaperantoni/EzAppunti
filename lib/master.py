@@ -19,7 +19,7 @@ def master_append(id, ftp, path, titolo, autore, dataCalendario, tags):
     :type tags: string array
     """
     master_update(ftp)
-    out = str(id) + ";" + titolo + ";" + autore + ";" + str(dataCalendario) + ";0;0;0;"
+    out = str(id) + ";" + titolo + ";" + autore + ";" + str(dataCalendario) + ";;;;"
     x = -1
     for i in tags:
         x += 1
