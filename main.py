@@ -4,6 +4,7 @@ from lib.actions import *
 from lib.util import *
 from lib.updown import *
 import os
+import webbrowser
 def updateMap():
     for i in master_ls(ftp, "master.txt"):
         masterMap[i.split(";")[0]] = i
@@ -25,14 +26,18 @@ def ls_note(ftp):
         for i in v:
             id, nome, autore, data, views, like, dislike, tagg = i.split(";")
             data = time.ctime(float(data))
-            print("\n","ID:",id,"\n","Nome:",nome,"\n","Autore:",autore,"\n","Data:",data,"\n","Views: ",views,"\n", "Tag:",tagg)
+            like.split(",")
+            dislike.split(",")
+            print("\n","ID:",id,"\n","Nome:",nome,"\n","Autore:",autore,"\n","Data:",data,"\n","Views: ",views,"\n","Like: ",len(like),"\n","Dislike: ",len(dislike),"\n", "Tag:",tagg)
     else:
         for i in v:
             id, nome, autore, data, views, like, dislike, tagg = i.lower().split(";")
             data = time.ctime(float(data))
+            like.split(",")
+            dislike.split(",")
             for j in range(len(filter)):
                 if filter[j] in nome or filter[j] in autore or filter[j] in tagg:
-                    print("\n","ID:",id,"\n","Nome:",nome,"\n","Autore:",autore,"\n","Data:",data,"\n","Views: ",views,"\n","Tag:", tagg)
+                    print("\n","ID:",id,"\n","Nome:",nome,"\n","Autore:",autore,"\n","Data:",data,"\n","Views: ",views,"\n","Like: ",len(like),"\n","Dislike: ",len(dislike),"\n","Tag:", tagg)
 # id/username/password/permessi/karma
 credentials = []
 filter = []
@@ -44,7 +49,7 @@ if __name__ == "__main__":
     ftp = connectToServer()
     if "users.txt" in ftp.nlst():
         ftp.retrbinary("RETR users.txt", open("users.txt", "wb").write)  # TODO Hide file
-    print("[1] Login\n[2] Registrazione")
+    print("[1] Login\n[2] Registrazione\n[3] Segnala Bug")
     inpLoginRegister = input()
     if (inpLoginRegister == "1"):
         print("\n===LOGIN===")
@@ -72,7 +77,10 @@ if __name__ == "__main__":
         password = input("Password: ")
         confirmPassword = input("Confirm password: ")
         actions_register(ftp, username, password, confirmPassword)
-    else:
+    elif inpLoginRegister == "3":
+        webbrowser.open("https://github.com/hellix08/EzAppunti/issues/new")
+        exitProgram()
+    else:#FIXME
         print("Invalid option")
         exitProgram()
     master_update(ftp)
@@ -132,7 +140,7 @@ if __name__ == "__main__":
             print("<<" + open("data/" + str(id) + ".txt", "r").read() + ">>")
             inpE = ""
             while inpE != "0" and exitLoop != False:
-                print("\n[1]Edit title\n[2]Edit tags\n[3]Edit text\n[4]Delete note\n[5]Like\n[6]Dislike\n[0]Exit")
+                print("-----\n[+]Like\n[-]Dislike\n-----\n[1]Edit title\n[2]Edit tags\n[3]Edit text\n[4]Delete note\n[0]Exit")
                 inpE = input("~ ")
                 if inpE == "3" and (credentials[3] == "**" or credentials[3] == "***"):
                     os.startfile(os.path.normpath("data/" + id + ".txt"))
@@ -157,8 +165,10 @@ if __name__ == "__main__":
                     master_delete(ftp, "master.txt", id)
                     updateMap()
                     exitLoop = False
-                if inpE=="5":
-                    actions_like(id,loggedUser,masterMap,ftp)
+                if inpE=="+":
+                    actions_like(ftp,id,credentials[0])
+                if inpE=="-":
+                    actions_dislike(ftp,id,credentials[0])
         if _inp == "4":
             inp = input("Ordinate for:\n[1]Id\n[2]Name\n[3]Date\n[5]Toggle reverse ordination\n")
             if inp == "0":
