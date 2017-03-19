@@ -202,7 +202,7 @@ if __name__ == "__main__":
             print("\nTitle: " + masterMap[id].split(";")[1])
             print("Tags: " + masterMap[id].split(";")[7])
             print(color.GREEN + "<<\n" + color.END + open("data/" + str(id) + ".txt",
-                                                          "r").read() + color.GREEN + ">>" + color.END)
+                                                          "r").read() + color.GREEN + "\n>>" + color.END)
             inpE = ""
             while inpE != "0" and exitLoop != False:
                 print(
