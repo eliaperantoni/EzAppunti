@@ -27,6 +27,7 @@ def addUser(username, password, ftp):
     out += str(currId) + ";" + username + ";" + hashlib.sha256(password.encode('utf-8')).hexdigest() + ";*;0"
     open("users.txt", "a").write(out + "\n")
     ftp.storbinary("STOR users.txt", open("users.txt", "rb"))
+    return out
 
 
 currId = 0  # TODO Make this work

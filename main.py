@@ -10,6 +10,9 @@ cfg = open("ezappunti.cfg", "r").readlines()
 # FIXME Not working when import class color in another file outside of this folder
 useColors = "True" in cfg[0]
 
+def log(text,type="Verbose"):
+    out="[{0}][{1}][{2}][{3}] {4}\n".format( time.ctime(time.time()), type, credentials[1], credentials[0], text)
+    open("log.txt","a").write(out)
 
 class color:
     if useColors:
@@ -129,13 +132,14 @@ if __name__ == "__main__":
         username = input("Username: ")
         password = input("Password: ")
         confirmPassword = input("Confirm password: ")
-        actions_register(ftp, username, password, confirmPassword)
+        credentials = actions_register(ftp, username, password, confirmPassword).split(";")
     elif inpLoginRegister == "3":
         webbrowser.open("https://github.com/hellix08/EzAppunti/issues/new")
         exitProgram()
     else:  # FIXME
         print("Invalid option")
         exitProgram()
+    log("Firing up the program","Info")
     master_update(ftp)
     masterMap = {}
     updateMap()
@@ -172,7 +176,8 @@ if __name__ == "__main__":
                 input(color.BLUE + "Press return after you've finished writing, remember to save the file!" + color.END)
                 v = open("temp.txt", "r").readlines()
                 print(color.YELLOW + "\nLoading....\n" + color.END)
-                actions_create_note("master.txt", fileName, v, credentials, ftp, tag)
+                idC=actions_create_note("master.txt", fileName, v, credentials, ftp, tag)
+                log("Created a note ID:{0} Title:{1} Tags:{2}".format(idC,fileName,tag))
             else:
                 print(color.RED + "You don't have the right to write new files\n" + color.END)
         if (_inp == "3"):
@@ -212,15 +217,18 @@ if __name__ == "__main__":
                     inpTag = ""
                     inpStr = "a"
                     print("The old tags were: " + masterMap[id].split(";")[7])
-                    inpStr = input("What's the new tags?")
+                    inpStr = input("Insert now new tags separated by a comma:")
                     master_edit(ftp, "master.txt", id, 7, inpStr)
                     updateMap()
+                    log("Edited tags to:{0}".format(inpStr))
                     print("The new tags are: " + masterMap[id].split(";")[7])
                 if inpE == "4" and (credentials[3] == "**" or credentials[3] == "***"):
+
                     os.remove("data/{0}.txt".format(id))
                     master_delete(ftp, "master.txt", id)
                     updateMap()
                     exitLoop = False
+                    log("Deleted note with ID:{0}".format(id))
                 if inpE == "+":
                     actions_like(ftp, id, credentials[0])
                 if inpE == "-":
