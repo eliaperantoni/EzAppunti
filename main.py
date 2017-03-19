@@ -140,10 +140,10 @@ if __name__ == "__main__":
         print("Invalid option")
         exitProgram()
     log("Firing up the program","Info")
-    master_update(ftp)
     masterMap = {}
-    updateMap()
     while True:
+        master_update(ftp)
+        updateMap()
         exitLoop = True
         ls_note(ftp)
         print("")
@@ -178,6 +178,7 @@ if __name__ == "__main__":
                 print(color.YELLOW + "\nLoading....\n" + color.END)
                 idC=actions_create_note("master.txt", fileName, v, credentials, ftp, tag)
                 log("Created a note ID:{0} Title:{1} Tags:{2}".format(idC,fileName,tag))
+                updateMap()
             else:
                 print(color.RED + "You don't have the right to write new files\n" + color.END)
         if (_inp == "3"):
@@ -192,6 +193,10 @@ if __name__ == "__main__":
         if (_inp == "2"):
             print("Which note do you want to select?")
             id = input("~ ")
+            ids = [val.split(";")[0] for val in master_ls(ftp,"master.txt")]
+            if(not id in ids):
+                print(color.RED+"No such id"+color.END)
+                continue
             actions_visual(ftp, id)
             updown_download(ftp, "data/" + id + ".txt", id + ".txt")
             print("\nTitle: " + masterMap[id].split(";")[1])

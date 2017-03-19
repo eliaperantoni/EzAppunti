@@ -4,3 +4,12 @@
 [Sun Mar 19 19:16:18 2017][Info][hellix][1] Firing up the program
 [Sun Mar 19 19:18:33 2017][Info][hellix][1] Firing up the program
 [Sun Mar 19 19:18:49 2017][Verbose][hellix][1] Edited tags to:tag3,tag5,tag6
+[Sun Mar 19 19:50:32 2017][Info][hellix][1] Firing up the program
+[Sun Mar 19 19:50:54 2017][Info][hellix][1] Firing up the program
+[Sun Mar 19 19:53:02 2017][Info][hellix][1] Firing up the program
+[Sun Mar 19 19:53:16 2017][Verbose][hellix][1] Created a note ID:6 Title:blablablabla Tags:['l', 'l', 'l']
+[Sun Mar 19 19:54:56 2017][Info][hellix][1] Firing up the program
+[Sun Mar 19 19:55:28 2017][Verbose][hellix][1] Created a note ID:7 Title:testtesttest Tags:['sagsa']
+[Sun Mar 19 19:57:04 2017][Info][hellix][1] Firing up the program
+[Sun Mar 19 20:01:08 2017][Info][hellix][1] Firing up the program
+[Sun Mar 19 20:02:20 2017][Info][hellix][1] Firing up the program
