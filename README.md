@@ -45,7 +45,9 @@ WIP
 
 ## Deployment
 
-WIP
+Executables download:
++ [Main](https://drive.google.com/uc?export=download&id=0B1aDM-Dj36QyUld0ZS1BM08td3M)
++ [Users](https://drive.google.com/uc?export=download&id=0B1aDM-Dj36QyVW5adE5zRG0zM1E)
 
 ## Built With
 
