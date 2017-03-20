@@ -6,9 +6,15 @@ from lib.updown import *
 import os
 import webbrowser
 
-cfg = open("ezappunti.cfg", "r").readlines()
 # FIXME Not working when import class color in another file outside of this folder
-useColors = "True" in cfg[0]
+useColors = False
+try:
+    cfg = open("ezappunti.cfg", "r").readlines()
+    useColors = "True" in cfg[0]
+except:
+    open("ezappunti.cfg", "w").write("useColors:True\nguiIsDefault:False\n")
+
+
 
 def log(text,type="Verbose"):
     out="[{0}][{1}][{2}][{3}] {4}\n".format( time.ctime(time.time()), type, credentials[1], credentials[0], text)

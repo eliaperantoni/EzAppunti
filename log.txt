@@ -16,3 +16,7 @@
 [Sun Mar 19 20:10:17 2017][Info][hellix][1] Firing up the program
 [Sun Mar 19 20:12:59 2017][Info][hellix][1] Firing up the program
 [Sun Mar 19 20:13:46 2017][Info][hellix][1] Firing up the program
+[Sun Mar 19 20:16:51 2017][Info][hellix][1] Firing up the program
+[Sun Mar 19 20:53:15 2017][Info][hellix][1] Firing up the program
+[Sun Mar 19 20:54:24 2017][Verbose][hellix][1] Created a note ID:1 Title:Self Tags:['oop', 'python', 'oggetti']
+[Mon Mar 20 17:56:36 2017][Info][hellix][1] Firing up the program

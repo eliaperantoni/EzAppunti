@@ -1,1 +1,1 @@
-gseghs
+Self è una parola chiave usata in python che si riferisce all'oggetto corrente, è spesso utilizzato nei metodi
